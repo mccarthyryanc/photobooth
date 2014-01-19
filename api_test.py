@@ -17,7 +17,7 @@ import picamera
 with picamera.PiCamera() as camera:
     camera.resolution = (640, 480)
     camera.start_preview()
-    camera.start_recording('foo.h264')
+    camera.start_recording('foo.h264', inline_headers=False)
     camera.wait_recording(20)
     camera.stop_recording()
     camera.stop_preview()
