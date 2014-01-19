@@ -19,12 +19,12 @@ with picamera.PiCamera() as camera:
     time.sleep(2)
     count = 0
     for filename in camera.capture_continuous('img{counter:03d}.jpg'):
-    	if count > max_pic:
-    		break
-    	else:
-    		count += 1
-	        print('Captured %s' % filename)
-    	    time.sleep(300) # wait 5 minutes
+        if count > max_pic:
+            break
+        else:
+            count += 1
+            print('Captured %s' % filename)
+            time.sleep(300) # wait 5 minutes
 
 # # Create the in-memory stream
 # stream = io.BytesIO()
