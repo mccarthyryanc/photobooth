@@ -9,19 +9,36 @@ import picamera
 import cv2
 import numpy as np
 
-# Create the in-memory stream
-stream = io.BytesIO()
+import time
+import picamera
+
+
+max_pic = 4
 with picamera.PiCamera() as camera:
     camera.start_preview()
     time.sleep(2)
-    camera.capture(stream, format='jpeg')
-# Construct a numpy array from the stream
-data = np.fromstring(stream.getvalue(), dtype=np.uint8)
-# "Decode" the image from the array, preserving colour
-image = cv2.imdecode(data, 1)
-# OpenCV returns an array with data in BGR order. If you want RGB instead
-# use the following...
-image = image[:, :, ::-1]
+    count = 0
+    for filename in camera.capture_continuous('img{counter:03d}.jpg'):
+    	if count > max_pic:
+    		break
+    	else:
+    		count += 1
+	        print('Captured %s' % filename)
+    	    time.sleep(300) # wait 5 minutes
+
+# # Create the in-memory stream
+# stream = io.BytesIO()
+# with picamera.PiCamera() as camera:
+#     camera.start_preview()
+#     time.sleep(2)
+#     camera.capture(stream, format='jpeg')
+# # Construct a numpy array from the stream
+# data = np.fromstring(stream.getvalue(), dtype=np.uint8)
+# # "Decode" the image from the array, preserving colour
+# image = cv2.imdecode(data, 1)
+# # OpenCV returns an array with data in BGR order. If you want RGB instead
+# # use the following...
+# image = image[:, :, ::-1]
 
 # camera = picamera.PiCamera()
 # try:
