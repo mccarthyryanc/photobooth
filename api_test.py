@@ -15,15 +15,12 @@ import picamera
 
 max_pic = 4     # Max number of pics
 rest_time = 3   # seconds
+filelist = ["image0%d"%num for num in range(max_pix)]
 with picamera.PiCamera() as camera:
     camera.start_preview()
-    time.sleep(3)
-    count = 0
-    for i, filename in enumerate(camera.capture_continuous('image{counter:02d}.jpg')):
-        print("Captured: %s"%filename)
-        time.sleep(rest_time)
-        if i == max_pic:
-            break
+    time.sleep(rest_time)
+    camera.capture_sequence(filelist)
+    camera.stop_preview()
 
 # # Create the in-memory stream
 # stream = io.BytesIO()
