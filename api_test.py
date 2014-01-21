@@ -13,18 +13,17 @@ import time
 import picamera
 
 
-max_pic = 4
+max_pic = 4     # Max number of pics
+rest_time = 3   # seconds
 with picamera.PiCamera() as camera:
     camera.start_preview()
     time.sleep(3)
     count = 0
-    for filename in camera.capture_continuous('img{counter:03d}.jpg'):
-        if count > max_pic:
+    for i, filename in enumerate(camera.capture_continuous('image{counter:02d}.jpg')):
+        print("Captured: %s"%filename)
+        time.sleep(rest_time)
+        if i == max_pic:
             break
-        else:
-            count += 1
-            print('Captured %s' % filename)
-            time.sleep(3) # wait 5 minutes
 
 # # Create the in-memory stream
 # stream = io.BytesIO()
