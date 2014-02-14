@@ -9,14 +9,12 @@ import picamera
 import cv2
 import numpy as np
 
-import time
-import picamera
-
 
 max_pic = 4     # Max number of pics
 rest_time = 3   # seconds
 filelist = ["image0%d.jpg"%num for num in range(max_pic)]
 with picamera.PiCamera() as camera:
+    camera.resolution = (1800, 1200)
     camera.start_preview()
     for img_file in filelist:
         camera.capture(img_file)

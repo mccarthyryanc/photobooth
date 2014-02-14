@@ -1,0 +1,17 @@
+#
+# List of the commands I am issuing with imagemagick
+#
+#
+
+
+# resize the images
+mogrify -resize 600x900 img*.jpg
+
+# Tile the images together
+#montage img001.jpg img002.jpg img003.jpg img004.jpg -border 5 -geometry +5+5   border.jpg
+
+# Tile images with banner in the middle
+montage img001.jpg img002.jpg -tile 2x1 -border 5 -geometry +0+0 top.jpg
+montage img003.jpg img004.jpg -tile 2x1 -border 5 -geometry +0+0 bottom.jpg
+montage top.jpg wedding_banner_white_bg_resized.png bottom.jpg -tile 1x -geometry +0+0 final.png 
+convert final.png -resize 1200x1800 final_resize.png
