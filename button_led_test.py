@@ -10,7 +10,7 @@ GPIO.setup(18, GPIO.IN)
 GPIO.setup(11, GPIO.OUT)
 # GPIO.setup(13, GPIO.OUT)
 # GPIO.setup(15, GPIO.OUT)
-GPIO.output(11, GPIO.LOW)
+GPIO.output(11, GPIO.HIGH)
 # GPIO.output(13, GPIO.LOW)
 # GPIO.output(15, GPIO.LOW)
 
@@ -29,6 +29,15 @@ def blink(pin_number, length, rate):
     total = 0.0
     state = -1
 
+    # If rate is negative, just leave led on
+    # for amount of length
+    if rate < 0:
+        GPIO.output(pin_number, GPIO.LOW)
+        sleep(length)
+        GPIO.output(pin_number, GPIO.HIGH)
+        return 0
+
+    # rate is positive, start blinking
     while True:
         state *= -1
         total += rate
@@ -41,15 +50,17 @@ def blink(pin_number, length, rate):
         else:
             GPIO.output(pin_number, GPIO.HIGH)
             print "positive negative, GPIO.HIGH"
+        sleep(rate)
 
     return 0
 
 while True:
     
     if ( GPIO.input(16) == True ):
-        blink(11,1.5,0.5);
-        blink(11,1,0.25);
-        blink(11,1,0.1);
+        blink(11,2.0,0.5);
+        blink(11,2.0,0.25);
+        blink(11,2.0,0.1);
+        blink(11,1.0,-1);
 
     # # state toggle button is pressed
     # if ( GPIO.input(16) == True ):
