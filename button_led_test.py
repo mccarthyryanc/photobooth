@@ -15,51 +15,60 @@ GPIO.output(11, GPIO.LOW)
 # GPIO.output(15, GPIO.LOW)
 
 # state - decides what LED should be on and off
-state = 0
+state = -1
 
 # increment - the direction of states
 inc = 1
 
+sleep_time = 0.5
+
 while True:
-    # state toggle button is pressed
-    if ( GPIO.input(16) == True ):
-        if (inc == 1):
-            state = state + 1;
-        else:
-            state = state - 1;
+    state *= -1
 
-        # reached the max state, time to go back (decrement)
-        if (state == 3):
-            inc = 0
-        # reached the min state, go back up (increment)
-        elif (state == 0):
-            inc = 1
-
-        if (state == 1):
-            GPIO.output(11, GPIO.HIGH)
-            # GPIO.output(13, GPIO.LOW)
-            # GPIO.output(15, GPIO.LOW)
-        elif (state == 2):
-            GPIO.output(11, GPIO.HIGH)
-            # GPIO.output(13, GPIO.HIGH)
-            # GPIO.output(15, GPIO.LOW)
-        elif (state == 3):
-            GPIO.output(11, GPIO.HIGH)
-            # GPIO.output(13, GPIO.HIGH)
-            # GPIO.output(15, GPIO.HIGH)
-        else:
-            GPIO.output(11, GPIO.LOW)
-            # GPIO.output(13, GPIO.LOW)
-            # GPIO.output(15, GPIO.LOW)
-        print("pressed B1 ", state)
-
-    # reset button is pressed
-    if ( GPIO.input(18) == True ):
-        state = 0
-        inc = 1
+    if (state > 0):
         GPIO.output(11, GPIO.LOW)
-        # GPIO.output(13, GPIO.LOW)
-        # GPIO.output(15, GPIO.LOW)
-        print("pressed B2 ", state)
+    else:
+        GPIO.output(11, GPIO.HIGH)
 
-    sleep(0.2);
+    # # state toggle button is pressed
+    # if ( GPIO.input(16) == True ):
+    #     if (inc == 1):
+    #         state = state + 1;
+    #     else:
+    #         state = state - 1;
+
+    #     # reached the max state, time to go back (decrement)
+    #     if (state == 3):
+    #         inc = 0
+    #     # reached the min state, go back up (increment)
+    #     elif (state == 0):
+    #         inc = 1
+
+    #     if (state == 1):
+    #         GPIO.output(11, GPIO.HIGH)
+    #         # GPIO.output(13, GPIO.LOW)
+    #         # GPIO.output(15, GPIO.LOW)
+    #     elif (state == 2):
+    #         GPIO.output(11, GPIO.HIGH)
+    #         # GPIO.output(13, GPIO.HIGH)
+    #         # GPIO.output(15, GPIO.LOW)
+    #     elif (state == 3):
+    #         GPIO.output(11, GPIO.HIGH)
+    #         # GPIO.output(13, GPIO.HIGH)
+    #         # GPIO.output(15, GPIO.HIGH)
+    #     else:
+    #         GPIO.output(11, GPIO.LOW)
+    #         # GPIO.output(13, GPIO.LOW)
+    #         # GPIO.output(15, GPIO.LOW)
+    #     print("pressed B1 ", state)
+
+    # # reset button is pressed
+    # if ( GPIO.input(18) == True ):
+    #     state = 0
+    #     inc = 1
+    #     GPIO.output(11, GPIO.LOW)
+    #     # GPIO.output(13, GPIO.LOW)
+    #     # GPIO.output(15, GPIO.LOW)
+    #     print("pressed B2 ", state)
+
+    sleep(sleep_time);
