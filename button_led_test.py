@@ -20,15 +20,36 @@ state = -1
 # increment - the direction of states
 inc = 1
 
-sleep_time = 0.5
+refresh_time = 0.1
+
+def blink(pin_number, length, rate):
+    """
+    Function to blink an LED an amount of time at a certain rate.
+    """
+    total = 0.0
+    state = -1
+
+    while True:
+        state *= -1
+        total += rate
+        if total > length:
+            break
+
+        if (state > 0):
+            GPIO.output(pin_number, GPIO.LOW)
+            print "positive state, GPIO.LOW"
+        else:
+            GPIO.output(pin_number, GPIO.HIGH)
+            print "positive negative, GPIO.HIGH"
+
+    return 0
 
 while True:
-    state *= -1
-
-    if (state > 0):
-        GPIO.output(11, GPIO.LOW)
-    else:
-        GPIO.output(11, GPIO.HIGH)
+    
+    if ( GPIO.input(16) == True ):
+        blink(11,1.5,0.5);
+        blink(11,1,0.25);
+        blink(11,1,0.1);
 
     # # state toggle button is pressed
     # if ( GPIO.input(16) == True ):
@@ -71,4 +92,4 @@ while True:
     #     # GPIO.output(15, GPIO.LOW)
     #     print("pressed B2 ", state)
 
-    sleep(sleep_time);
+    sleep(refresh_time);
