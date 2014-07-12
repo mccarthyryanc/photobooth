@@ -117,6 +117,7 @@ def print_current_image():
     Subprocess to call print functions and save image
     function.
     """
+    print_cmd = "lp -d Canon_CP900 current_image.png"
     
 
 
@@ -127,10 +128,10 @@ if __name__ == '__main__':
     while running:
         try:
             print datetime.now() , " | Waiting for green putton press..."  
-            GPIO.wait_for_edge(green_button_pin, GPIO.FALLING)
+            GPIO.wait_for_edge(green_button_pin, GPIO.BOTH)
             # === Start the button listeners for printing/no-printing ===
-            GPIO.add_event_detect(green_button_pin, GPIO.FALLING, callback=print_current_image, bouncetime=300)
-            GPIO.add_event_detect(red_button_pin, GPIO.FALLING, callback=save_current_image, bouncetime=300)
+            GPIO.add_event_detect(green_button_pin, GPIO.BOTH, callback=print_current_image, bouncetime=300)
+            GPIO.add_event_detect(red_button_pin, GPIO.BOTH, callback=save_current_image, bouncetime=300)
 
             # Start the camera and take pictures
             start_camera()
